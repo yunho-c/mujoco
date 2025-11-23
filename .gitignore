@@ -1,3 +1,5 @@
+build-android/
+
 # Don't commit binaries
 *.a
 *.asm
