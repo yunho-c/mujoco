@@ -1,7 +1,7 @@
-FROM ghcr.io/cirruslabs/android-sdk:36
+FROM ghcr.io/cirruslabs/android-sdk:36-ndk
 
-ENV ANDROID_HOME=/opt/android-sdk
-ENV ANDROID_NDK_HOME=/opt/android-sdk/ndk/26.2.11394342
+ENV ANDROID_HOME=/opt/android-sdk-linux
+ENV ANDROID_NDK_HOME=${ANDROID_HOME}/ndk/27.3.13750724
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \

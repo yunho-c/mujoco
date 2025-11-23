@@ -24,6 +24,10 @@
 #include <unistd.h>
 #endif
 
+#if defined(ANDROID) || defined(__ANDROID__)
+#include <malloc.h>
+#endif
+
 #include "engine/engine_array_safety.h"
 #include "engine/engine_macro.h"
 
@@ -32,6 +36,8 @@
 static inline void* mju_alignedMalloc(size_t size, size_t align) {
 #ifdef _WIN32
   return _aligned_malloc(size, align);
+#elif defined(ANDROID) || defined(__ANDROID__)
+  return memalign(align, size);
 #elif defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L
   return aligned_alloc(align, size);
 #endif
@@ -97,7 +103,7 @@ void mju_writeLog(const char* type, const char* msg) {
     // get time
     time(&rawtime);
 
-#if defined(_POSIX_C_SOURCE) || defined(__APPLE__) || defined(__STDC_VERSION_TIME_H__) || defined(__EMSCRIPTEN__)
+#if defined(_POSIX_C_SOURCE) || defined(__APPLE__) || defined(__STDC_VERSION_TIME_H__) || defined(__EMSCRIPTEN__) || defined(ANDROID) || defined(__ANDROID__)
     localtime_r(&rawtime, &timeinfo);
 #elif _MSC_VER
     localtime_s(&timeinfo, &rawtime);
