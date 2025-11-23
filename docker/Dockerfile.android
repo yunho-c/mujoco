@@ -1,0 +1,19 @@
+FROM ghcr.io/cirruslabs/android-sdk:36
+
+ENV ANDROID_HOME=/opt/android-sdk
+ENV ANDROID_NDK_HOME=/opt/android-sdk/ndk/26.2.11394342
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      cmake \
+      ninja-build \
+      libx11-dev \
+      pkg-config \
+      wayland-protocols \
+      libwayland-dev \
+      libxinerama-dev \
+      libxcursor-dev \
+      libxkbcommon-dev \
+      libxrandr-dev \
+      libxi-dev && \
+    rm -rf /var/lib/apt/lists/*
